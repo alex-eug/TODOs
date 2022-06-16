@@ -63,14 +63,14 @@ export default function InputText() {
     return (
         <div className='input--container'>
             <form onSubmit={addTodoList} className='form'>
-                <label className='form--label' htmlFor="todo">Todo</label>
+                <label className='form--label' htmlFor="todo">Todo: </label>
                 <input
                     className="form--input"
                     type="text"
                     value={input}
                     onInput={inputText}
                 />
-                <button className='form--button'>clic</button>
+                <button className='form--button'>Add</button>
             </form>
             <h2 className='todo--list__title'>What i have to do:</h2>
             <ul style={{ listStyle: "none" }} className='todo--list'>

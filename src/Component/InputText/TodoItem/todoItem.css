@@ -1,0 +1,16 @@
+.li-list--item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid black 1px;
+    padding: 20px 10px;
+    width: 250px;
+    margin:auto ;
+    
+}
+.li--button{
+    width: 80px;
+    padding: 5px;
+    margin-top: 15px;
+}

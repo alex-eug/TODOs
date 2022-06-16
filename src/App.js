@@ -1,11 +1,20 @@
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import InputText from "./Component/InputText/InputText";
+//import TodoDetail from "./Component/InputText/TodoDetail/TodoDetail"
+
 import './App.css';
-import InputText from './Component/InputText/InputText';
 
 function App() {
   return (
     <div className="App">
       <h1 className='todo--title'>Todo list</h1>
-      <InputText />
+      <Routes>
+        <Route path="/" element={<InputText />} />
+      </Routes>
+
     </div>
   );
 }
