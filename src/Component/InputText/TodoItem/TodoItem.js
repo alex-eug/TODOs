@@ -1,10 +1,12 @@
 import React from 'react'
 
-export default function TodoItem() {
+export default function TodoItem({title,id,deleteTodo }) {
+  
+
   return (
         <li className="li-list--item">
-        <div className='li--text'>text</div>
-        <button className='li--button'>Delete</button>
+        <h3 className='li--text'>{title}</h3>
+        <button className='li--button'onClick={()=>deleteTodo(id)} >Delete</button>
     </li>
   )
 }
