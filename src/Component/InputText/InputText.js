@@ -3,51 +3,63 @@ import TodoItem from './TodoItem/TodoItem'
 
 
 export default function InputText() {
-    //création d'un identifiant unique
+    //creation of a unique identifier
     const id = function () {
         return '_' + Math.random().toString(36).substr(2, 9);
     };
+    const [titleList, setTitleList] = useState([{ title: "Team Meeting", id: id(), check: false }, { title: "Trainning", id: id(), check: false }])
+    const [input, setInput] = useState("")
 
-    const [titleList, setTitleList] = useState([{ title: "Team Meeting", id: id() }, { title: "Scrum Meeting", id: id() }])
-    const [input, setInput] = useState()
-    
+    //delete a task
     const deleteTodo = (id) => {
         const findId = titleList.filter((elm) => {
             return elm.id !== id
         })
         setTitleList(findId)
-        console.log(titleList);
     }
+    //Controlled Components
     const inputText = (e) => {
         setInput(e.target.value)
     }
+    //add a todo
     const addTodoList = (e) => {
         e.preventDefault()
         const newTodoList = [...titleList]
         const newInput = {}
         newInput.title = input
         newInput.id = id()
+        newInput.check = false
         newTodoList.unshift(newInput)
         setTitleList(newTodoList)
+        setInput("")
     }
+    //check box
     const onCheck = (id) => {
+
         const findId = titleList.find((elm) => {
             return elm.id === id
         })
-        if(titleList.indexOf(findId) !== titleList.length-1){
-              deleteTodo(id)
-              const newTodoList = titleList.filter((elm) => {
+        //if checked todo goes bottom
+        if (findId.check === false) {
+            const newTodoList = titleList.filter((elm) => {
                 return elm.id !== id
             })
-              newTodoList.push(findId)
-              console.log(newTodoList)
-              setTitleList(newTodoList)
-        }else{
-            
+            findId.check = true
+            newTodoList.push(findId)
+            setTitleList(newTodoList)
+
+            //if unchecked todo goes up
+        } else if (findId.check === true) {
+            const newTodoList = titleList.filter((elm) => {
+                return elm.id !== id
+            })
+            findId.check = false
+            newTodoList.unshift(findId)
+            setTitleList(newTodoList)
+
         }
-        
     }
-    
+
     return (
         <div className='input--container'>
             <form onSubmit={addTodoList} className='form'>
@@ -55,12 +67,13 @@ export default function InputText() {
                 <input
                     className="form--input"
                     type="text"
+                    value={input}
                     onInput={inputText}
                 />
                 <button className='form--button'>clic</button>
             </form>
-            <h2 className='todo--list__title'>Ce que j'ai a faire</h2>
-            <ul className='todo--list'>
+            <h2 className='todo--list__title'>What i have to do:</h2>
+            <ul style={{ listStyle: "none" }} className='todo--list'>
                 {titleList.map((elm) => {
                     return (
                         <TodoItem
@@ -69,6 +82,7 @@ export default function InputText() {
                             id={elm.id}
                             deleteTodo={deleteTodo}
                             onCheck={onCheck}
+                            check={titleList.check}
                         />
                     )
                 })}
